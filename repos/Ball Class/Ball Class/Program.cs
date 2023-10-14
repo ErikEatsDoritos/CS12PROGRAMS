@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-namespace Ball_Class
-{
+namespace Ball_Class {
     internal class Program
     {
 
@@ -25,32 +24,48 @@ namespace Ball_Class
 
             public int GetPoints()
             {
-                
+
                 if (Color == "yellow") return 3;
                 else if (Color == "blue") return 2;
-                else if(Color == "white") return 1;
+                else if (Color == "white") return 1;
                 else return 0;
 
             }
         }
 
-        class robot
+        class Robot
         {
-            public string cargo;
+            public Ball Cargo;
 
-           
+            
 
-            public void Pickup(string ball)
+            public void PickUp(Ball ball)
             {
-                cargo = ball;
+                this.Cargo = ball;
             }
 
-            public void Dump()
+            public void Dump(Bucket bucket)
             {
-                
+                for (int i = 0; i < bucket.Balls.Length; i++)
+                {
+                    if (Cargo != null)
+                    {
+                        if (bucket.Balls[i] == null)
+                        {
+                            bucket.Balls[i] = Cargo.Color;
+                            Cargo = null;
+                            break;
+                        }
+                    }
+                    
+
+
+                }
             }
+
+
         }
-        
+
         class Bucket
         {
             public string[] Balls;
@@ -71,37 +86,38 @@ namespace Ball_Class
                         this.Balls[i] = ball.Color;
                         break;
                     }
-                        
-                   
+
+
                 }
-                
-                
+
+
             }
 
 
-            public int GetPoints()                                                  
+            public int GetPoints()
             {
-                int total = 0; 
-                foreach(string color  in this.Balls)
+                int total = 0;
+                foreach (string color in this.Balls)
                 {
                     if (color == "yellow") total += 3;
                     else if (color == "blue") total += 2;
                     else if (color == "white") total += 1;
-                   
-            
+
+
                 }
-                    return total; 
+                return total;
             }
 
         }
-          
 
-   
+
+
         static void Main(string[] args)
         {
             TestBucket();
             TestBall();
-            
+            TestRobot();
+
 
         }
 
@@ -122,7 +138,7 @@ namespace Ball_Class
             b2Points = b2.GetPoints();
             Console.WriteLine(b2Points);
             Console.ReadLine();
-            
+
         }
         public static void TestBucket()
         {
@@ -158,7 +174,8 @@ namespace Ball_Class
             // This isn't possible in real life so we need to prevent this 
             // from happening.
             // Note: requires encapsulation (private attributes).
-           
+            //bucket3.Balls[0] = b;
+            //bucket3.Balls[1] = b;
 
             // TODO: Cannot add same ball to multiple buckets!
             // Note: Class variables!
@@ -168,25 +185,53 @@ namespace Ball_Class
             bucket1.Add(ball);
             bucket2.Add(ball);
 
+
+
+
+
+
+
         }
 
+        public static void TestRobot()
+        {
+            Console.WriteLine("TestRobot() running...");
+            Ball ball1 = new Ball("yellow");
+            Ball ball2 = new Ball("white");
 
+            Bucket bucket1 = new Bucket(1);
+            Bucket bucket2 = new Bucket(1);
 
+            Robot rob = new Robot();
+            Console.WriteLine(rob.Cargo);  // null
+            rob.PickUp(ball1);
+            Console.WriteLine(rob.Cargo == ball1);  // True
+            Console.WriteLine(rob.Cargo == ball2);  // False
 
+            rob.Dump(bucket1);
+            //rob.ScoreCargo(bucket1)
+            Console.WriteLine(rob.Cargo);  // null
+            Console.WriteLine(bucket1.GetPoints());  // 3 (was a yellow ball)
 
+            rob.PickUp(ball2);  // (a white ball)
+            rob.Dump(bucket2);
+            Console.WriteLine(rob.Cargo);  // null
+            Console.WriteLine(bucket2.GetPoints());  // 1 (was a white ball)
 
+            // Cannot score non existing cargo
+            rob.Cargo = null;
+            Bucket bucket3 = new Bucket(1);
+            Console.WriteLine(bucket3.GetPoints());  // 0 (empty)
+            rob.Dump(bucket3);
+            Console.WriteLine(bucket3.GetPoints());  // 0 (still empty)
 
+            // TODO: Picking up multiple balls at once should throw error, not replace
 
-
-
-
-
-
-
-
-
-
-
+        }
 
     }
+
 }
+
+
+
