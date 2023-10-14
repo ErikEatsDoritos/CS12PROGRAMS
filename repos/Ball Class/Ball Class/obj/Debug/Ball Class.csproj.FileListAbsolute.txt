@@ -1,0 +1,7 @@
+C:\Users\Erik\source\repos\Ball Class\Ball Class\obj\Debug\Ball Class.csproj.AssemblyReference.cache
+C:\Users\Erik\source\repos\Ball Class\Ball Class\obj\Debug\Ball Class.csproj.CoreCompileInputs.cache
+C:\Users\Erik\source\repos\Ball Class\Ball Class\bin\Debug\Ball Class.exe.config
+C:\Users\Erik\source\repos\Ball Class\Ball Class\bin\Debug\Ball Class.exe
+C:\Users\Erik\source\repos\Ball Class\Ball Class\bin\Debug\Ball Class.pdb
+C:\Users\Erik\source\repos\Ball Class\Ball Class\obj\Debug\Ball Class.exe
+C:\Users\Erik\source\repos\Ball Class\Ball Class\obj\Debug\Ball Class.pdb
